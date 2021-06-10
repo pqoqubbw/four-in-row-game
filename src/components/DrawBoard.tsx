@@ -1,6 +1,8 @@
 import React from 'react';
 
-const DrawBoard: React.FC<any> = ({ board, idCell, isError, handleClick }) => {
+const DrawBoard: React.FC<any> = ({ board, isError, handleClick, value }) => {
+  let idCell = 0;
+
   return (
     <>
       {board &&
@@ -10,7 +12,7 @@ const DrawBoard: React.FC<any> = ({ board, idCell, isError, handleClick }) => {
               trElement.map((symbol: string | null, y: number) => (
                 <td
                   key={idCell}
-                  className={`cell ${isError ? 'error' : ''}`}
+                  className={`cell ${isError ? 'error' : ''} ${symbol ? `${symbol}` : ''}`}
                   id={String(idCell++)}
                   tabIndex={1}
                   onClick={() => handleClick({ x, y })}>
@@ -29,7 +31,6 @@ DrawBoard.defaultProps = {
     [null, null, null],
     [null, null, null],
   ],
-  idCell: 0,
   isError: false,
   handleClick: () => console.error(new Error("Draw Board must have a props ' handleClick() '")),
 };

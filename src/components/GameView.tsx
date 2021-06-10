@@ -31,13 +31,41 @@ const FieldView: React.FC<IPlayerView> = ({ game }) => {
     game.on.subscribe('update', ({ x, y, sign }: IUpdateData) => updateCell({ x, y, sign }));
     game.on.subscribe('win', (winner: string) => showWin(winner));
     game.on.subscribe('draw', (winner: string) => showWin(winner));
-  }, [game, game.on, setViewBoard]);
+  }, [game]);
 
-  const updateCell = ({ x, y, sign }: IUpdateData) => {
-    setBoard((state) => {
+  const ticTacToeUpdateCell = ({ x, y, sign }: IUpdateData): void => {
+    setBoard((state): (string | null)[][] => {
       state[x][y] = sign;
       return [...state];
     });
+  };
+
+  const fourInRowUpdateCell = ({ x, y, sign }: IUpdateData): void => {
+    setBoard((state): (string | null)[][] => {
+      for (let i = 5; i >= 0; i--) {
+        if (state[i][y] === null) {
+          state[i][y] = sign;
+          break;
+        }
+      }
+      return [...state];
+    });
+  };
+
+  const updateCell = ({ x, y, sign }: IUpdateData) => {
+    switch (game.gameInfo.strategy.getName()) {
+      case 'TicTacToe':
+        ticTacToeUpdateCell({ x, y, sign });
+        break;
+
+      case 'FourInRow':
+        fourInRowUpdateCell({ x, y, sign });
+        break;
+
+      default:
+        ticTacToeUpdateCell({ x, y, sign });
+        break;
+    }
   };
 
   const errorMove = (): void => {
@@ -59,7 +87,6 @@ const FieldView: React.FC<IPlayerView> = ({ game }) => {
     }
   };
 
-  let idCell = 0;
   return (
     <>
       <NextPlayer
@@ -68,7 +95,7 @@ const FieldView: React.FC<IPlayerView> = ({ game }) => {
       />
       <table className='table-bordered'>
         <tbody>
-          <DrawBoard board={board} idCell={idCell} isError={isError} handleClick={handleClick} />
+          <DrawBoard board={board} isError={isError} handleClick={handleClick} />
         </tbody>
       </table>
       <ResetButton clearBoard={() => game.clearBoard(0)} clearField={clearField}>

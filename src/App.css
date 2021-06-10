@@ -13,7 +13,7 @@ button {
 
 .App {
   text-align: center;
-  margin-top: 15%;
+  margin-top: 5%;
 }
 
 .table-bordered {
@@ -71,4 +71,17 @@ button {
   font-weight: 600;
   color: white;
   border: 1px solid black;
+}
+
+.turquoise {
+  font-size: 0;
+  background-color: coral !important;
+  border: 1px solid gray;
+
+}
+
+.orange {
+  font-size: 0;
+  background-color: aquamarine !important;
+  border: 1px solid gray;
 }
