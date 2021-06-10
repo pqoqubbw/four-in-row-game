@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Game, TicTacToe } from 'game-core';
+
+import PlayersList from './components/PlayersList';
+import GameView from './components/GameView';
+
 import './App.css';
 
-function App() {
+const game = new Game({
+  playersList: ['Jackson', 'Alex'],
+  strategy: new TicTacToe(),
+  fieldSize: { x: 3, y: 3 },
+});
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <>
+        <GameView game={game} />
+        <PlayersList game={game} />
+      </>
     </div>
   );
-}
+};
 
 export default App;

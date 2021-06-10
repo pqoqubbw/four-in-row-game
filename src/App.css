@@ -1,38 +1,74 @@
+td,
+tr {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+body,
+button {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+    Verdana, sans-serif;
+}
+
 .App {
+  text-align: center;
+  margin-top: 15%;
+}
+
+.table-bordered {
+  border: 1px solid gray;
+  margin: auto;
+}
+
+.cell {
+  border: 1px solid gray;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.main {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.cell:hover {
+  background-color: antiquewhite;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.player-name {
+  text-align: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.winnerText,
+.nextPlayer {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.nextPlayer {
+  color: darkorchid;
+}
+
+.winnerText {
+  color: brown;
+}
+
+.cell:hover.error {
+  border: 2px solid red;
+}
+
+.clearButton {
+  margin-top: 20px;
+  padding: 10px 14px;
+  cursor: pointer;
+  background-color: cornflowerblue;
+  font-size: 16px;
+  font-weight: 600;
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  border: 1px solid black;
 }
