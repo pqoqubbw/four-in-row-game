@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/games-on-core/static/css/main.2629b7a2.chunk.css",
-    "main.js": "/games-on-core/static/js/main.105fac40.chunk.js",
-    "main.js.map": "/games-on-core/static/js/main.105fac40.chunk.js.map",
+    "main.js": "/games-on-core/static/js/main.d2ef0252.chunk.js",
+    "main.js.map": "/games-on-core/static/js/main.d2ef0252.chunk.js.map",
     "runtime-main.js": "/games-on-core/static/js/runtime-main.dd42a21c.js",
     "runtime-main.js.map": "/games-on-core/static/js/runtime-main.dd42a21c.js.map",
-    "static/js/2.f526e9d9.chunk.js": "/games-on-core/static/js/2.f526e9d9.chunk.js",
-    "static/js/2.f526e9d9.chunk.js.map": "/games-on-core/static/js/2.f526e9d9.chunk.js.map",
+    "static/js/2.fe004cb6.chunk.js": "/games-on-core/static/js/2.fe004cb6.chunk.js",
+    "static/js/2.fe004cb6.chunk.js.map": "/games-on-core/static/js/2.fe004cb6.chunk.js.map",
     "index.html": "/games-on-core/index.html",
     "static/css/main.2629b7a2.chunk.css.map": "/games-on-core/static/css/main.2629b7a2.chunk.css.map",
-    "static/js/2.f526e9d9.chunk.js.LICENSE.txt": "/games-on-core/static/js/2.f526e9d9.chunk.js.LICENSE.txt"
+    "static/js/2.fe004cb6.chunk.js.LICENSE.txt": "/games-on-core/static/js/2.fe004cb6.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.dd42a21c.js",
-    "static/js/2.f526e9d9.chunk.js",
+    "static/js/2.fe004cb6.chunk.js",
     "static/css/main.2629b7a2.chunk.css",
-    "static/js/main.105fac40.chunk.js"
+    "static/js/main.d2ef0252.chunk.js"
   ]
 }
