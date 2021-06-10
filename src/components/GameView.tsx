@@ -9,10 +9,11 @@ import { IPlayerView } from '../@types';
 
 const FieldView: React.FC<IPlayerView> = ({ game }) => {
   const { x, y } = game.field.size;
+
   const [board, setBoard] = useState<(string | null)[][]>([]);
   const [isError, setIsError] = useState(false);
-
   const [winnerName, setWinnerName] = useState('');
+
   const showWin = (winner: string): void => {
     setWinnerName(winner);
   };
@@ -31,6 +32,12 @@ const FieldView: React.FC<IPlayerView> = ({ game }) => {
     game.on.subscribe('update', ({ x, y, sign }: IUpdateData) => updateCell({ x, y, sign }));
     game.on.subscribe('win', (winner: string) => showWin(winner));
     game.on.subscribe('draw', (winner: string) => showWin(winner));
+
+    return () => {
+      clearField();
+      game.clearBoard(0);
+      game.on.events = {};
+    };
   }, [game]);
 
   const ticTacToeUpdateCell = ({ x, y, sign }: IUpdateData): void => {
@@ -86,7 +93,6 @@ const FieldView: React.FC<IPlayerView> = ({ game }) => {
       errorMove();
     }
   };
-
   return (
     <>
       <NextPlayer

@@ -4,6 +4,7 @@ export interface IEvent {
   events: IEvents;
   subscribe(eventName: string, fn: callbackFunc): void;
   trigger(eventName: string, data: any): void;
+  unsubscribe(eventName: string, func: callbackFunc): void;
 }
 
 export interface INextPlayerView {

@@ -4,8 +4,9 @@ import { Game, TicTacToe } from 'game-core';
 import PlayersList from './components/PlayersList';
 import GameView from './components/GameView';
 
-import './App.css';
 import FourInRow from './FourInRowStrategy/FourInRow';
+
+import './App.css';
 
 const ticTacToe = new Game({
   playersList: ['Jackson', 'Alex'],
@@ -20,37 +21,47 @@ const fourInRow = new Game({
 });
 
 const App: React.FC = () => {
-  const [game, setGame] = useState(ticTacToe);
+  const [isTicTacToe, setTicTacToe] = useState(false);
+  const [isFourInRow, setFourInRow] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     switch (e.target.value) {
       case 'TicTacToe':
-        setGame(fourInRow);
+        setTicTacToe(true);
+        setFourInRow(false);
         break;
 
       case 'FourInRow':
-        setGame(fourInRow);
+        setTicTacToe(false);
+        setFourInRow(true);
         break;
 
       default:
-        setGame(ticTacToe);
+        setTicTacToe(true);
+        setFourInRow(false);
         break;
     }
   };
 
   return (
     <div className='App'>
-      <label>
-        Select game:
-        <select onChange={(e) => handleChange(e)}>
-          <option value='TicTacToe'>TicTacToe</option>
-          <option value='FourInRow'>FourInRow</option>
-        </select>
-      </label>
-      <>
-        <GameView game={game} />
-        <PlayersList game={game} />
-      </>
+      <select onChange={(e) => handleChange(e)}>
+        <option value='select'>select game</option>
+        <option value='TicTacToe'>TicTacToe</option>
+        <option value='FourInRow'>FourInRow</option>
+      </select>
+      {isTicTacToe && (
+        <>
+          <GameView game={ticTacToe} />
+          <PlayersList game={ticTacToe} />
+        </>
+      )}
+      {isFourInRow && (
+        <>
+          <GameView game={fourInRow} />
+          <PlayersList game={fourInRow} />
+        </>
+      )}
     </div>
   );
 };
