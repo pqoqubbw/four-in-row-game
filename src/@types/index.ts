@@ -24,7 +24,7 @@ export interface IPlayerView {
     field: IFieldProps;
     gameInfo: any;
     isFinished: boolean;
-    on: IEvent;
+    event: IEvent;
     players: Array<IPlayersInfo>;
     turn: number;
     clearBoard: (symbol: number) => void;

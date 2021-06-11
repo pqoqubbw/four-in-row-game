@@ -30,19 +30,19 @@ const FieldView: React.FC<IPlayerView> = ({ game }) => {
   useEffect(() => {
     setViewBoard();
 
-    game.on.subscribe(subscribeActions.move, ({ x, y }: IFieldViewProps) =>
+    game.event.subscribe(subscribeActions.move, ({ x, y }: IFieldViewProps) =>
       game.makeMove({ x, y })
     );
-    game.on.subscribe(subscribeActions.update, ({ x, y, sign }: IUpdateData) =>
+    game.event.subscribe(subscribeActions.update, ({ x, y, sign }: IUpdateData) =>
       updateCell({ x, y, sign })
     );
-    game.on.subscribe(subscribeActions.win, (winner: string) => showWin(winner));
-    game.on.subscribe(subscribeActions.draw, (winner: string) => showWin(winner));
+    game.event.subscribe(subscribeActions.win, (winner: string) => showWin(winner));
+    game.event.subscribe(subscribeActions.draw, (winner: string) => showWin(winner));
 
     return () => {
       clearField();
       game.clearBoard(0);
-      game.on.events = {};
+      game.event.events = {};
     };
   }, [game]);
 
@@ -67,7 +67,7 @@ const FieldView: React.FC<IPlayerView> = ({ game }) => {
   const handleClick = ({ x, y }: IFieldViewProps) => {
     if (!board[x][y] && !game.isFinished) {
       setIsError(false);
-      game.on.trigger(subscribeActions.move, { x, y });
+      game.event.trigger(subscribeActions.move, { x, y });
     } else {
       setIsError(true);
     }
