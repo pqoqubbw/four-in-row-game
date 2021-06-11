@@ -7,6 +7,8 @@ import DrawBoard from './DrawBoard';
 import { IFieldViewProps, IUpdateData } from 'game-core/dist/@types/types';
 import { IPlayerView } from '../@types';
 
+import { subscribeActions } from '../constans';
+
 const FieldView: React.FC<IPlayerView> = ({ game }) => {
   const { x, y } = game.field.size;
 
@@ -28,10 +30,14 @@ const FieldView: React.FC<IPlayerView> = ({ game }) => {
   useEffect(() => {
     setViewBoard();
 
-    game.on.subscribe('move', ({ x, y }) => game.makeMove({ x, y }));
-    game.on.subscribe('update', ({ x, y, sign }: IUpdateData) => updateCell({ x, y, sign }));
-    game.on.subscribe('win', (winner: string) => showWin(winner));
-    game.on.subscribe('draw', (winner: string) => showWin(winner));
+    game.on.subscribe(subscribeActions.move, ({ x, y }: IFieldViewProps) =>
+      game.makeMove({ x, y })
+    );
+    game.on.subscribe(subscribeActions.update, ({ x, y, sign }: IUpdateData) =>
+      updateCell({ x, y, sign })
+    );
+    game.on.subscribe(subscribeActions.win, (winner: string) => showWin(winner));
+    game.on.subscribe(subscribeActions.draw, (winner: string) => showWin(winner));
 
     return () => {
       clearField();
@@ -40,14 +46,7 @@ const FieldView: React.FC<IPlayerView> = ({ game }) => {
     };
   }, [game]);
 
-  const ticTacToeUpdateCell = ({ x, y, sign }: IUpdateData): void => {
-    setBoard((state): (string | null)[][] => {
-      state[x][y] = sign;
-      return [...state];
-    });
-  };
-
-  const fourInRowUpdateCell = ({ x, y, sign }: IUpdateData): void => {
+  const updateCell = ({ x, y, sign }: IUpdateData) => {
     setBoard((state): (string | null)[][] => {
       for (let i = 5; i >= 0; i--) {
         if (state[i][y] === null) {
@@ -59,27 +58,7 @@ const FieldView: React.FC<IPlayerView> = ({ game }) => {
     });
   };
 
-  const updateCell = ({ x, y, sign }: IUpdateData) => {
-    switch (game.gameInfo.strategy.getName()) {
-      case 'TicTacToe':
-        ticTacToeUpdateCell({ x, y, sign });
-        break;
-
-      case 'FourInRow':
-        fourInRowUpdateCell({ x, y, sign });
-        break;
-
-      default:
-        ticTacToeUpdateCell({ x, y, sign });
-        break;
-    }
-  };
-
-  const errorMove = (): void => {
-    setIsError(true);
-  };
-
-  const clearField = () => {
+  const clearField = (): void => {
     setViewBoard();
     setWinnerName('');
     setIsError(false);
@@ -88,22 +67,19 @@ const FieldView: React.FC<IPlayerView> = ({ game }) => {
   const handleClick = ({ x, y }: IFieldViewProps) => {
     if (!board[x][y] && !game.isFinished) {
       setIsError(false);
-      game.on.trigger('move', { x, y });
+      game.on.trigger(subscribeActions.move, { x, y });
     } else {
-      errorMove();
+      setIsError(true);
     }
   };
+
   return (
     <>
       <NextPlayer
         players={game.gameInfo.playersList}
         currentPlayerIndex={game.currentPlayerIndex}
       />
-      <table className='table-bordered'>
-        <tbody>
-          <DrawBoard board={board} isError={isError} handleClick={handleClick} />
-        </tbody>
-      </table>
+      <DrawBoard board={board} isError={isError} handleClick={handleClick} />
       <ResetButton clearBoard={() => game.clearBoard(0)} clearField={clearField}>
         reset game
       </ResetButton>
