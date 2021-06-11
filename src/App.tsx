@@ -1,26 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Game } from 'game-core';
+
+import PlayersList from './components/PlayersList';
+import GameView from './components/GameView';
+
+import FourInRow from './FourInRowStrategy/FourInRow';
+
 import './App.css';
 
-function App() {
+const fourInRow = new Game({
+  playersList: ['Jackson', 'Alex'],
+  strategy: new FourInRow(),
+  fieldSize: { x: 6, y: 7 },
+});
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <div>
+        <h1>FourInRow Game</h1>
+      </div>
+      <GameView game={fourInRow} />
+      <PlayersList game={fourInRow} />
     </div>
   );
-}
+};
 
 export default App;
